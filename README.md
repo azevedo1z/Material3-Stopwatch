@@ -14,7 +14,7 @@ A modern Flutter stopwatch application featuring a custom-painted analog clock w
 ## Getting Started
 
 ```sh
-git clone https://github.com/azevedo1x/Flutter-Stopwatch.git
+git clone https://github.com/azevedo1z/Flutter-Stopwatch.git
 cd Flutter-Stopwatch
 flutter pub get
 flutter run
@@ -70,7 +70,7 @@ State flows in one direction: **user action → `StopwatchService` method → pr
 
 ## Developer
 
-Developed by [Gabriel Azevedo](https://github.com/azevedo1x)
+Developed by [Gabriel Azevedo](https://github.com/azevedo1z)
 
 | Version | Date | Notes |
 |---|---|---|
