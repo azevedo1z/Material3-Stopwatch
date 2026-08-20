@@ -44,7 +44,7 @@ class AboutView extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'github.com/azevedo1x',
+                'github.com/azevedo1z',
                 style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
