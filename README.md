@@ -9,7 +9,7 @@ A modern Flutter stopwatch application featuring a custom-painted analog clock w
 - **Start / Pause / Reset** - Circular action buttons; reset fades in only when there's elapsed time
 - **Material 3 dark theme** - Purple accent (`#6C63FF`), supports system light/dark mode
 - **Riverpod state management** - `StopwatchService` lives as a provider with proper timer lifecycle (no leaks)
-- **About page** - Version history shown as styled chips
+- **About page** - Version history shown as styled chips, with a tappable GitHub link
 
 ## Getting Started
 
@@ -17,8 +17,10 @@ A modern Flutter stopwatch application featuring a custom-painted analog clock w
 git clone https://github.com/azevedo1z/Flutter-Stopwatch.git
 cd Flutter-Stopwatch
 flutter pub get
-flutter run
+flutter run -t lib/presentation/main.dart
 ```
+
+> The entry point lives at `lib/presentation/main.dart`, not at the default `lib/main.dart`.
 
 ### Requirements
 
@@ -37,7 +39,7 @@ lib/
 │       ├── home_view.dart           # Main screen (clock, timer display, buttons)
 │       └── about_view.dart          # About page with version chips
 └── widgets/
-    └── AnimatedStopwatch.dart       # Analog clock (CustomPaint + AnimationController)
+    └── animated_stopwatch.dart      # Analog clock (CustomPaint + StopwatchPainter)
 ```
 
 ## Architecture
@@ -48,7 +50,7 @@ The app follows a layered structure:
 |---|---|
 | **`data/`** | Riverpod providers and `StopwatchService` - owns the `Stopwatch` instance, a `Timer.periodic` at ~60fps, and all state mutations |
 | **`presentation/`** | UI screens that `watch` providers and call service methods. No business logic in widgets |
-| **`widgets/`** | Reusable visual components. `AnimatedStopwatch` uses an `AnimationController` to repaint a `StopwatchPainter` that draws the clock face, tick marks, and hands |
+| **`widgets/`** | Reusable visual components. `AnimatedStopwatch` feeds the elapsed `Duration` to a `StopwatchPainter` that draws the clock face, tick marks, and hands |
 
 State flows in one direction: **user action → `StopwatchService` method → provider state update → UI rebuild**.
 
@@ -57,7 +59,7 @@ State flows in one direction: **user action → `StopwatchService` method → pr
 | Package | Purpose |
 |---|---|
 | `flutter_riverpod` | Reactive state management |
-| `cupertino_icons` | iOS-style icons |
+| `url_launcher` | Opens the developer's GitHub link in the browser |
 | `flutter_lints` | Static analysis rules |
 
 ## Usage
