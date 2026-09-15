@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stopwatch/widgets/animated_stopwatch.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutView extends StatelessWidget {
+  static const _githubHandle = 'github.com/azevedo1z';
+  static const _githubUrl = 'https://$_githubHandle';
+
   const AboutView({super.key});
 
   @override
@@ -19,7 +23,7 @@ class AboutView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AnimatedStopwatch(elapsed: Duration()),
+              const AnimatedStopwatch(elapsed: Duration.zero),
               const SizedBox(height: 32),
               Text(
                 'Stopwatch',
@@ -43,10 +47,14 @@ class AboutView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'github.com/azevedo1z',
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
+              TextButton(
+                onPressed: () => _openGithub(ScaffoldMessenger.of(context)),
+                child: Text(
+                  _githubHandle,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -65,6 +73,19 @@ class AboutView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _openGithub(ScaffoldMessengerState messenger) async {
+    final launched = await launchUrl(
+      Uri.parse(_githubUrl),
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (!launched) {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Could not open $_githubUrl')),
+      );
+    }
   }
 }
 
